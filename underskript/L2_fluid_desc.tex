@@ -1,0 +1,45 @@
+\subsection{Magneto-Hydro Dynamics}
+We look at a mixture of electrons and ions. We assume we have quasi-neutrality, i.e.\ that \(n_e\approx n_i\approx n\).
+\begin{align*}
+    \rho&=n(m_i+m_e)\\
+    \gf{v}&=\frac{1}{\rho}(n_{i}m_i\gf{v}_i+n_{e}m_e\gf{v}_e)=\frac{n}{\rho}(m_i\gf{v}_i+m_e\gf{v}_e)\\
+    \gf{j}&=ne(\gf{v}_i-\gf{v}_e)
+\end{align*}
+We want to derive the momentum equation for our plasma, so we first use the momentum equation for ions
+\begin{equation*}
+    \p{t}{(nm_i\gf{v}_i)}=en(\gf{E}+\gf{v}_i\times\gf{B})-\nabla p_i+m_{i}n\gf{g}+\gf{P}_{ie}
+\end{equation*}
+where \(p=nkT\) and \(\gf{P}_{ie}\propto nm_i\nu_{ie}(\gf{v}_i-\gf{v}_e)\) is the Coulomb collision term, the momentum transfer from the electrons to the ions and \(\nu_{ie}\) is the collision frequency. Then we look at the momentum equation for electrons
+\begin{equation*}
+    \p{t}{(nm_e\gf{v}_e)}=-en(\gf{E}+\gf{v}_e\times\gf{B})-\nabla p_e+m_{e}n\gf{g}+\gf{P}_{ei}
+\end{equation*}
+We then add the two to obtain one of the MHD equations
+\begin{equation*}
+    \p{t}{\left[n\left(m_i\gf{v}+m_e\gf{v}_e\right)\right]}=en(\gf{v}_i-\gf{v}_e)\times\gf{B}-\nabla\left(p_i+p_e\right)+n(m_i+m_e)\gf{g}
+\end{equation*}
+\coloredeq{eq:MHD}{\p{t}{\left(\rho\gf{v}\right)}&=\gf{j}\times\gf{B}-\nabla{} p+\rho\gf{g}}
+If \(T_i=T_e\) we can find from \(p_i=nkT_i\) and \(p_e=nkT_e\) that \(p=2nkT\).
+Other MHD equations are
+\begin{align}
+    \p{t}{\rho}+\nabla\cdot\left(\rho \gf{v}\right)&=0\label{eq:MHD_1}\\
+    \rho\left[\p{t}{\gf{v}}+(\gf{v}\cdot\nabla)\gf{v}\right]&=-\nabla p+\gf{j}\times\gf{B}\label{eq:MHD_2}\\
+    \nabla\times\gf{E}&=-\p{t}{\gf{B}}\label{eq:MHD_3}\\
+    \nabla\times\gf{B}&=\mu_0\gf{j}\label{eq:MHD_4}\\
+    \gf{j}&=\sigma(\gf{E}+\gf{v}\times\gf{B})\label{eq:MHD_5}\\
+    p\rho^{-1}&=\text{const},\quad \tn{adiabatic transformation}\label{eq:MHD_6}
+\end{align}
+We want to find the \emph{Reynold number}. We then use \cref{eq:MHD_4,eq:MHD_5} and find the curl of this to obtain
+\begin{align*}
+    \nabla\times\left(\nabla\times\gf{B}\right)&=\nabla\times\mu_0\gf{j}=\nabla\times\left[\mu_0\sigma(\gf{E}+\gf{v}\times\gf{B})\right]\\
+    &=\mu_0\sigma\left(-\p{t}{\gf{B}}+\nabla\times\left[\gf{v}\times\gf{B}\right]\right)
+\end{align*}
+We then rewrite this so that the local time derivative of the magnetic field is on the LHS, and we use one of the vector identities to rewrite the term on the left
+\begin{equation*}
+    \p{t}{\gf{B}}=\underbrace{\nabla\left(\gf{v}\times\gf{B}\right)}_{\substack{\tn{convection}\\ \tn{term}}}+\underbrace{\frac{1}{\mu_0\sigma}\nabla^2\gf{B}}_{\substack{\tn{diffusion}\\ \tn{term}}}
+\end{equation*}
+We define the Reynold number to be
+\begin{align*}
+    R_m&=\frac{\tn{convection term}}{\tn{diffusion term}}=\frac{\nabla\left(\gf{v}\times\gf{B}\right)}{\frac{1}{\mu_0\sigma}\nabla^2\gf{B}}\\
+    &=\frac{\frac{1}{L}vB}{\frac{1}{\mu_0\sigma}\frac{1}{L^2}B}=L\mu_0\sigma v
+\end{align*}
+where we have used that the gradient scales as \(\nabla\sim 1/L\). If \(R_m\gg 1\) then MHD is applicable, otherwise it is not.

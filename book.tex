@@ -1,0 +1,69 @@
+\documentclass[small_title,unis]{book_class}
+% \documentclass[small_title,section-equation]{book_class}
+% \documentclass[big_title,section-equation,unis]{book_class}
+% If big:
+% \themaketitle{Course}{Title}{what}
+% If small:
+\thetitle{AGF-301 The Upper Polar Atmosphere\\Lecture Notes}
+\lhead{{\footnotesize\textsc{\leftmark}}}
+
+\pgfplotsset{compat=1.16}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Physics of space plasmas}
+\input{underskript/L1_single_particle}
+
+
+\section{Fluid description of plasmas}
+\input{underskript/L2_fluid_desc.tex}
+
+
+\chapter{Earth's geomagnetic field}
+\input{underskript/L3_geomagnetic_field.tex}
+
+
+\chapter{Auroral processes}
+\input{underskript/L4_auroral_processes.tex}
+
+
+\chapter{Field work}
+\input{underskript/L5_field_work.tex}
+
+
+\chapter{The neutral atmosphere}
+\input{underskript/L6_the_neutral_atmosphere.tex}
+
+
+\chapter{Revisit: Pulsations \& MHD-waves}
+\input{underskript/L7_MHD_waves.tex}
+
+
+\chapter{Magnetic reconnection}
+\input{underskript/L8_reconnection.tex}
+
+
+\chapter{The Sun \& the solar wind}
+\input{underskript/L9_sun_solar_wind.tex}
+
+
+\chapter{The ionosphere}
+\input{underskript/L10_ionosphere.tex}
+
+
+\chapter{The aurora}
+\input{underskript/L11_auroral_particles.tex}
+
+
+\chapter{Current systems and convection}
+\input{underskript/L13_current_systems_and_convections.tex}
+
+
+\chapter{Currents in the ionosphere}
+\input{underskript/L12_currents_ionosphere.tex}
+
+
+\bibliographystyle{apalike}
+\bibliography{./ref}
+\end{document}

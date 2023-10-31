@@ -1,0 +1,256 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{my_doc_style}[2013/01/13 Custom Package]
+
+\RequirePackage{lmodern}
+% \RequirePackage{koma}
+
+% Option to have sectioned numbering of equations and figures.
+\newif\ifseceq
+\DeclareOption{section-equation}{
+	\seceqtrue
+}
+% Option to have UNIS as university.
+\newif\ifunis
+\DeclareOption{unis}{
+	\unistrue
+}
+%% 'sans serif' option
+\DeclareOption{sans}{
+  \renewcommand{\familydefault}{\sfdefault}
+}
+%% 'roman' option
+\DeclareOption{roman}{
+  \renewcommand{\familydefault}{\rmdefault}
+}
+% Default title
+\DeclareOption{small_title}{
+    \newcommand{\thetitle}[1]{\title{\vspace{-1cm}#1}}
+
+    %FORFATTER
+    \author{%
+        \large
+		\textsc{Eirik Rolland Enger}\\[2mm]
+		\ifunis
+			\normalsize	The University Centre in Svalbard\\
+		\else
+			\normalsize	Universitetet i Troms{\o}\\
+		\fi
+        \date{\today}
+        \vspace{-5mm}
+        }
+}
+% Title page
+\DeclareOption{big_title}{
+\newcommand{\themaketitle}[3]{
+\begin{titlepage} % Suppresses displaying the page number on the title page and the subsequent page counts as page 1
+
+	\raggedleft % Right align the title page
+
+	\rule{1pt}{\textheight} % Vertical line
+	\hspace{0.05\textwidth} % Whitespace between the vertical line and title page text
+	\parbox[b]{0.88\textwidth}{ % Paragraph box for holding the title page text, adjust the width to move the title page left or right on the page
+
+		{\Huge\bfseries #1\vspace{0.5cm}\\#2}\\[2\baselineskip] % Title
+		{\Large\textit{#3}}\\[4\baselineskip] % Subtitle or further description
+		{\LARGE\textsc{Eirik Rolland Enger}} % Author name, lower case for consistent small caps
+
+		\vspace{0.5\textheight} % Whitespace between the title block and the publisher
+
+		{\noindent Number of pages not including front page: \pageref{LastPage}}\\[\baselineskip] % Publisher and logo
+	}
+\end{titlepage}}
+}
+
+%% Global indentation option
+\newif\if@neverindent\@neverindentfalse
+\DeclareOption{neverindent}{
+  \@neverindenttrue
+}
+
+\ExecuteOptions{roman}
+\ExecuteOptions{sectionequation}
+
+\ProcessOptions\relax
+
+%% Traditional LaTeX or TeX follows...
+% ...
+
+
+
+\newlength{\pardefault}
+\setlength{\pardefault}{\parindent}
+\newcommand{\neverindent}{ \setlength{\parindent}{0pt} }
+\newcommand{\autoindent}{ \setlength{\parindent}{\pardefault} }
+
+\if@neverindent
+\neverindent
+\fi
+
+% ...
+
+
+% PREAMBLE
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[tbtags]{amsmath}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} % Most people will need these for mathematics
+\usepackage[ddmmyy]{datetime}
+\ifseceq
+	\numberwithin{equation}{section}
+	\numberwithin{figure}{section}
+\fi
+%Figures
+\usepackage{graphicx}	%Graphics package
+%\usepackage[center]{caption}
+\usepackage{subcaption}
+\usepackage{wrapfig}  % Wrap text around figures
+\usepackage{float} % To place figures correctly
+\usepackage{circuitikz}
+\newcommand{\mymeter}[2]
+{  % #1 = name , #2 = rotation angle
+	\begin{scope}[transform shape,rotate=#2]
+		\draw[thick] (#1)node(){$\mathbf V$} circle (11pt);
+		\draw[rotate=45,-latex] (#1)  +(-17pt,0) --+(17pt,0);
+	\end{scope}
+}
+
+\usepackage{makeidx} % Probably important.
+\usepackage{listings} % To include code-snippets
+\usepackage{color}
+\usepackage{xcolor,colortbl}
+\usepackage[outline]{contour}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref} % Clickable links to urls, internal and external references etc.
+\usepackage{cleveref} % [capitalise]
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+
+\lstset{language=Matlab,%
+	%basicstyle=\color{red},
+	breaklines=true,%
+	morekeywords={matlab2tikz},
+	keywordstyle=\color{blue},%
+	morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+	identifierstyle=\color{black},%
+	stringstyle=\color{mylilas},
+	commentstyle=\color{mygreen},%
+	showstringspaces=false,%without this there will be a symbol in the places where there is a space
+	numbers=left,%
+	numberstyle={\tiny \color{black}},% size of the numbers
+	numbersep=9pt, % this defines how far the numbers are from the text
+	emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+	%emph=[2]{word1,word2}, emphstyle=[2]{style},
+}
+
+\usepackage{siunitx}
+\usepackage{textcomp}
+%\usepackage{upgreek}
+
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  identifierstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+\usepackage{pdfpages}	% Packages to handle certain issues with the pdf conversion and landscape figures/tables
+\usepackage{lscape}
+
+% \usepackage[authoryear,square]{natbib} % References/bibliography package
+\usepackage{natbib}
+\usepackage{footnote}
+\usepackage{appendix} % Appendix + add to table of contents
+\usepackage{sidecap}
+\usepackage{cancel}
+\usepackage{physics}
+\usepackage{commath}
+\usepackage[neverdecrease]{paralist}
+\usepackage{lastpage}
+% \usepackage{enumitem}
+
+% Table packages
+\usepackage{tabularx}
+\usepackage{tabu}
+\usepackage{longtable}
+\makesavenoteenv{tabular}
+\makesavenoteenv{table}
+\usepackage{array}
+\usepackage{booktabs}
+\newcommand*\rot{\rotatebox{90}}
+\usepackage{wrapfig}
+
+%Special in-document vector graphics:
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,calc,positioning,3d,intersections,arrows}
+\usetikzlibrary{decorations.markings}
+\usepackage{pgfplots}
+\usepackage[customcolors]{hf-tikz}
+\def\circledarrowneg#1#2#3{ % #1 Style, #2 Center, #3 Radius
+\draw[#1,->] (#2) +(80:#3) arc(80:-260:#3);
+}
+\def\circledarrowpos#1#2#3{ % #1 Style, #2 Center, #3 Radius
+\draw[#1,<-] (#2) +(80:#3) arc(80:-260:#3);
+}
+
+% Custom characters
+\newcommand{\slfrac}[2]{\left.#1\middle/#2\right.} % Long on-line fraction-slash: \slfrac
+\newcommand{\degree}{\ensuremath{^\circ}} % The 'degree' character : \degree
+\DeclareRobustCommand{\orderof}{\ensuremath{\mathcal{O}}} % The 'Order of' character: \orderof
+
+% My commands
+% Make a nice blue box around equations
+\usepackage[amsmath]{empheq}
+\newcommand{\coloredeq}[2]{\begin{empheq}[box=\colorbox{blue!10}]{align}\label{#1}#2\end{empheq}}
+\newcommand{\coloredeqq}[1]{\begin{empheq}[box=\colorbox{blue!10}]{align*}#1\end{empheq}}
+% Make a nice line
+\newcommand{\mylinbrk}{\\
+\rule{\linewidth}{1pt}\vspace{0.2cm}\\}
+% Change the font of section titles
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {2.3ex \@plus.2ex}%
+                                   {\normalfont\Large\bfseries\textsl}}
+% Make a nice text box
+																	 \newenvironment{txboxed}
+    {\begin{center}
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline\vspace{-1mm}
+    }
+    {
+	\vspace{1mm}\\\hline
+    \end{tabular}
+    \end{center}
+    }
+\newcommand{\parr}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\p}[2]{\partial_{#1}#2}
+\newcommand{\f}[1]{\mathbf{#1}}
+\newcommand{\gf}[1]{\boldsymbol{#1}}
+\newcommand{\tn}[1]{\textnormal{#1}}
+\newcommand{\ap}{\approx}
+\newcommand{\mate}[1]{\frac{\text{D}#1}{\text{D}t}}
+\newcommand{\fracd}[2][t]{\frac{\tn{d}#2}{\tn{d}#1}}
+\newcommand{\fracdt}[1]{\frac{\textnormal{d}#1}{\textnormal{d}t}}
+\newcommand{\pres}[3]{\prescript{#1}{#2}{\tn{#3}}}
+\def\answ#1{\underline{\underline{#1}}}
+\newtheorem*{remark}{Remark}
+\newtheorem{theorem}{Theorem}[chapter]
+\crefname{theorem}{thm.}{thms.}
+\Crefname{theorem}{Thm.}{Thms.}
+\newtheorem{definition}{Definition}[chapter]
+\crefname{definition}{def.}{defs.}
+\Crefname{definition}{Def.}{Defs.}
+\DeclareSIUnit\ray{R}
+
+\setlength{\oddsidemargin}{-10pt}
+\setlength{\evensidemargin}{-10pt}
+\setlength{\textwidth}{472pt}
+\setlength{\textheight}{710pt}
+\setlength{\topmargin}{-1cm}
+\setlength{\headsep}{15pt}
+\setlength{\footskip}{25pt}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\rhead{\textsc{last update: \color{red}{\today}}}
+
+\endinput
