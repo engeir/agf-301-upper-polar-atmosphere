@@ -5,5 +5,5 @@
 Compile with [tectonic](https://github.com/tectonic-typesetting/tectonic):
 
 ```bash
-tectonic bood.tex
+tectonic book.tex
 ```
